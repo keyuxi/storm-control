@@ -18,7 +18,7 @@
 # Hazen 1/13
 #
 
-import numpy
+import numpy, time
 from PyQt4 import QtCore, QtGui
 
 import qtWidgets.qtAppIcon as qtAppIcon
@@ -624,13 +624,11 @@ class FocusLockZCam(FocusLockZ):
     @hdebug.debug
     def __init__(self, parameters, control_thread, ir_laser, parent):
         FocusLockZ.__init__(self, parameters, parent)
-
         # Setup UI.
         import qtdesigner.focuslock_ui as focuslockUi
 
         self.ui = focuslockUi.Ui_Dialog()
         self.ui.setupUi(self)
-
         # Add Camera lock display.
         self.lock_display1 = lockDisplay.LockDisplayCam(parameters.get("focuslock"),
                                                         control_thread, 
@@ -640,7 +638,6 @@ class FocusLockZCam(FocusLockZ):
         self.lock_display1.foundSum.connect(self.handleFoundSum)
         self.lock_display1.foundFocus.connect(self.handleFoundFocus)
         self.lock_display1.recenteredPiezo.connect(self.handleRecenteredPiezo)
-
         FocusLockZ.configureUI(self)
 
 #

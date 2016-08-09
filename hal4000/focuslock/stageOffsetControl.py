@@ -643,11 +643,11 @@ class StageCamThread(StageQPDThread):
         self.qpd_mutex.lock()
         data = self.cam.qpdScan()
         self.qpd_mutex.unlock()
-
         self.cam_mutex.lock()
         self.cam_data = list(self.cam.getImage())
-        self.cam_data[0] = self.cam_data[0].copy()
+        self.cam_data[0] = self.cam_data[0].copy()  
         self.cam_mutex.unlock()
+        
         return data
 
 #
