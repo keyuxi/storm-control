@@ -5,6 +5,7 @@
 # Focus lock control specialized for STORM6.
 #
 # Hazen 03/12
+# Alistair 08/16
 #
 import sc_library.parameters as params
 
@@ -25,8 +26,8 @@ import focuslock.focusLockZ as focusLockZ
 # import focuslock.noneWidgets as noneWidgets
 
 #
-# Focus Lock Dialog Box specialized for STORM4 with 
-# USB offset detector and MCL objective Z positioner.
+# Focus Lock Dialog Box specialized for STORM6 with 
+# USB offset detector and Ludl Z piezo-Z stage 
 #
 class AFocusLockZ(focusLockZ.FocusLockZCam):
     def __init__(self, hardware, parameters, parent = None):
@@ -45,8 +46,6 @@ class AFocusLockZ(focusLockZ.FocusLockZCam):
         lock_params.add("ir_power", params.ParameterInt("", "ir_power", 6, is_mutable = False))
         
         offset_file = "cam_offsets_storm6.txt"
-        # cam = noCamera.CameraQPD(camera_id = 0, x_width = 540, y_width = 150,
-		# 	sigma = 4.0, offset_file = offset_file)                             # added 
         cam = uc480Cam.CameraQPD(camera_id = 0, x_width = 540, y_width = 150,
 			sigma = 4.0, offset_file = offset_file)
         stage = MCLVZC.MCLVZControl("USB-6002", 0)
@@ -61,7 +60,7 @@ class AFocusLockZ(focusLockZ.FocusLockZCam):
                         parameters.get("focuslock.is_locked_buffer_length", 3),
                         parameters.get("focuslock.is_locked_offset_thresh", 1))
         
-        ir_laser = LDC210.LDC210PWMNI("PCIe-6353", 0)
+        ir_laser = LDC210.LDC210PWMNI("PCIe-6353", 1)  # Inputs here are (DAQ-card name, counter number). (was 0, switched to 1 and changed wiring 8/11/16)
         focusLockZ.FocusLockZCam.__init__(self,
                                           parameters,
                                           control_thread,

@@ -26,16 +26,17 @@
       <module_name>sc_hardware.nationalInstruments.hNicontrol</module_name>
       <class_name>Nidaq</class_name>
       <parameters>
-	<counter_board>PCIe-6353</counter_board>
-	<counter_id type="int">0</counter_id>
-	<counter_trigger type="int">0</counter_trigger>   <!-- Camera trigger.  PFI0/P1.0 -->
-	<waveform_clock>ctr0out</waveform_clock>
+        <!-- I have attached the camera fire to pin 37, which is CTR 0 SRC (counter 0, source of counter), PFI 8 -->
+        <counter_board>PCIe-6353</counter_board> <!-- the name of the NI DAQ card we have in the computer -->
+        <counter_id type="int">0</counter_id>  <!-- This is the CTR number associated with the pin that camera fire out (red cable) is attached to -->
+        <counter_trigger type="int">8</counter_trigger>  <!-- We get this trigger number from the PFI associated with CTR 0 SRC on the NI datasheet (PFI8) --> 
+        <waveform_clock>PFI12</waveform_clock> <!-- The reference sheet show CTR 0 OUT (counter 0 out) is pin 2 (not used) PFI 12 -->
       </parameters>
     </control_module>
   </control_modules>
 
   <channels>
-
+  
     <!-- 750 laser -->
     <channel>
       <description>750</description>
@@ -80,10 +81,10 @@
 	<uses>AOTF</uses>
 	<display_normalized type="boolean">True</display_normalized>
 	<parameters>
-	  <maximum type="int">7800</maximum> <!-- 50% deflection at 7800. 100% deflection at 15000 -->
+	  <maximum type="int">8000</maximum> <!-- 97% deflection at 8000.  -->
 	  <channel type="int">1</channel> <!-- MOD1+ = NI AO 1 -->
 	  <off_frequency type="float">20.0</off_frequency>
-	  <on_frequency type="float">90.54</on_frequency>
+	  <on_frequency type="float">90.59</on_frequency>
 	</parameters>
       </amplitude_modulation>
       
@@ -116,7 +117,7 @@
 	<uses>AOTF</uses>
 	<display_normalized type="boolean">True</display_normalized>
 	<parameters>
-	  <maximum type="int">7200</maximum> <!-- 50% deflection at 7200. 92% deflection at 15000 -->
+	  <maximum type="int">8000</maximum> <!--99% deflection at 8000 -->
 	  <channel type="int">2</channel>  <!-- MOD2+ = NI AO 2 -->
 	  <off_frequency type="float">20.0</off_frequency>
 	  <on_frequency type="float">108.543</on_frequency>
