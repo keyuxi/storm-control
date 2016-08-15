@@ -230,9 +230,12 @@ class StageQPDThread(QtCore.QThread):
             self.qpd_mutex.lock()
             self.find_sum = True
             self.max_sum = 0
-            self.max_pos = 0
-            self.moveStageAbs(0)
-            self.resetBuffer()
+            # self.max_pos = 0  # removed when changed focus lock mode to Bogdan's z-scan v3 8/11/16
+            # self.moveStageAbs(0) # removed when changed focus lock mode to Bogdan's  z-scan v3 8/11/16
+            self.resetBuffer() # removed when changed focus lock mode to Bogdan's  z-scan v3 8/11/16
+            self.max_pos = self.z_center # changed focus lock mode to Bogdan's  z-scan v3 8/11/16
+            self.moveStageAbs(2) # changed focus lock mode to Bogdan's  z-scan v3 8/11/16
+            self.FirstTry = True # changed focus lock mode to Bogdan's  z-scan v3 8/11/16
             self.qpd_mutex.unlock()
         else:
             self.foundSum.emit(self.sum)

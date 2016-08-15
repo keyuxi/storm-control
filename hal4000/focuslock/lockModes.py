@@ -13,6 +13,7 @@ from PyQt4 import QtCore
 import numpy
 import scipy.optimize
 import focuslock.focusQuality as focusQuality
+import time
 
 ## LockMode
 #
@@ -917,6 +918,111 @@ class ZScanLockModeV2(AlwaysOnLockMode):
         AlwaysOnLockMode.stopLock(self)
 
 
+class ZScanLockModeV3(AlwaysOnLockMode):
+
+    ## __init__
+    #
+    # @param control_thread A thread object that controls the focus lock.
+    # @param parameters A parameters object.
+    # @param parent (Optional) The PyQt parent of this object.
+    #
+    def __init__(self, control_thread, parameters, parent):
+        AlwaysOnLockMode.__init__(self, control_thread, parameters, parent)
+        self.relock_timer.setInterval(2000)
+        self.counter = None
+        self.current_z = None
+        self.name = "Z Scan"
+        self.start_lock_target = None
+        self.z_step = None
+        self.z_frames_to_pause = None
+        self.z_stop = None
+
+    ## newFrame
+    #
+    # Handles a new frame from the camera. This moves to a new z position
+    # if the scan has not been completed.
+    #
+    # @param frame A frame object.
+    # @param offset The offset signal from the focus lock.
+    # @param power The sum signal from the focus lock.
+    # @param stage_z The z position of the piezo stage.
+    #
+    def newFrame(self, frame, offset, power, stage_z):
+        self.dead_counter+=1
+        if self.dead_counter<10:
+            print "wait!"
+        else:
+            if self.first_move:
+                if self.locked:
+                    self.control_thread.stopLock()
+                self.control_thread.moveStageRel(-self.z_stop) 
+                self.current_z-=self.z_stop
+                self.first_move = False
+                    
+            if (self.current_z < self.z_stop):
+                # print "Current/final:",self.current_z,self.z_stop
+                if (self.counter == self.z_frames_to_pause):
+                    self.counter = 0
+                    self.current_z += self.z_step 
+                    self.control_thread.moveStageRel(self.z_step) 
+                self.counter += 1
+            else:
+                # print "Last_move ~reached"
+                if self.last_move:
+                    self.control_thread.moveStageRel(-self.z_stop) #
+                    # print "Locked info:",self.locked
+                    if self.locked:
+                        # print "startedRelock"
+                        self.control_thread.startLock()
+                    self.last_move = False
+                
+
+    ## newParameters
+    #
+    # Handles new parameters.
+    #
+    # @param parameters A parameters object.
+    #
+    def newParameters(self, parameters):
+        self.z_step = parameters.get("zscan_step")
+        self.z_frames_to_pause = parameters.get("zscan_frames_to_pause")
+        self.z_stop = parameters.get("zscan_stop")
+
+    ## setLockTarget
+    #
+    # Sets the focus lock target to the desired value.
+    #
+    # @param target The desired lock target.
+    #
+    def setLockTarget(self, target):
+        self.start_lock_target = self.control_thread.getLockTarget()
+        AlwaysOnLockMode.setLockTarget(self, target)
+
+    ## startLock
+    #
+    # Starts the focus lock.
+    #
+    def startLock(self):
+        print "startLock"
+        AlwaysOnLockMode.startLock(self)
+        self.counter = 0
+        self.current_z = 0.0
+        self.start_lock_target = self.control_thread.getLockTarget()
+        self.first_move = True
+        self.last_move = True
+        self.dead_counter = 0
+        
+
+    ## stopLock
+    #
+    # Stops the focus lock.
+    #
+    def stopLock(self):
+        print "stopLock", self.start_lock_target
+        self.control_thread.setTarget(self.start_lock_target)
+        AlwaysOnLockMode.stopLock(self)   
+        
+        
 #
 # The MIT License
 #

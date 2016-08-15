@@ -35,10 +35,10 @@ class AFocusLockZ(focusLockZ.FocusLockZCam):
         lock_params = parameters.addSubSection("focuslock")
         lock_params.add("qpd_zcenter", params.ParameterRangeFloat("Piezo center position in microns",
                                                                   "qpd_zcenter",
-                                                                  50.0, 0.0, 300.0))  # range of z-piezo
+                                                                  150.0, 0.0, 300.0))  # range of z-piezo
         lock_params.add("qpd_scale", params.ParameterRangeFloat("Offset to nm calibration value",
                                                                 "qpd_scale",
-                                                                50.0, 0.1, 1000.0))
+                                                                1.0, 0.1, 1000.0)) # 50, 0.1 to 1000
         lock_params.add("qpd_sum_min", 50.0)
         lock_params.add("qpd_sum_max", 256.0)
         lock_params.add("is_locked_buffer_length", 3)
@@ -47,7 +47,7 @@ class AFocusLockZ(focusLockZ.FocusLockZCam):
         
         offset_file = "cam_offsets_storm6.txt"
         cam = uc480Cam.CameraQPD(camera_id = 0, x_width = 540, y_width = 150,
-			sigma = 4.0, offset_file = offset_file)
+			sigma = 4.0, offset_file = offset_file)  # sigma = 4.0
         stage = MCLVZC.MCLVZControl("USB-6002", 0)
         # stage = noneWidgets.NanoP()  # use this to bypass the stage 
         lock_fn = lambda (x): 0.02 * x

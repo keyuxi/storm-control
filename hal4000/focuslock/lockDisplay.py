@@ -82,7 +82,7 @@ class LockDisplay(QtGui.QWidget):
                            lockModes.CalibrationLockMode(control_thread,
                                                          parameters,
                                                          self),
-                           lockModes.ZScanLockModeV2(control_thread,
+                           lockModes.ZScanLockModeV3(control_thread,  # changed V2 to V3 to use Bogdan's z-scan 
                                                      parameters,
                                                      self)]
         
