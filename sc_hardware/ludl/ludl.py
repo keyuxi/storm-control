@@ -52,7 +52,7 @@ class Ludl(RS232.RS232):
 
 	#Set to analog mode?
 	if (self.live):
-	    self._command("SPEED X=300000 Y=300000")
+	    self._command("SPEED X=2564800 Y=2564800")####X=300000 Y=300000
 
     ## _command
     #
@@ -82,7 +82,7 @@ class Ludl(RS232.RS232):
         # FIXME: Need to figure out units for this..
         return params.ParameterRangeInt("Stage speed in pulses per second",
                                         "stage_speed",
-                                        10000, 10000, 400000)
+                                        2564800, 2464800, 2564800)
 
     ## getStatus
     #

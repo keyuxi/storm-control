@@ -49,7 +49,7 @@ class ACameraControl(cameraControl.HWCameraControl):
         # FIXME: These should all be obtained by querying the camere.
         cam_params.add("max_intensity", params.ParameterInt("",
                                                             "max_intensity",
-                                                            4096,
+                                                            65536,
                                                             is_mutable = False,
                                                             is_saved = False))
 
