@@ -56,6 +56,8 @@ class AOTF():
                 aotf = cdll.LoadLibrary('C:\Program Files\Crystal Technology\AOTF Utilities\AotfLibrary\LegacyAotfLibrary\DLL\AotfLibrary')
             elif os.path.exists('C:\Program Files\Crystal Technology\Developer\AotfLibrary\DLL\AotfLibrary.dll'):
                 aotf = cdll.LoadLibrary('C:\Program Files\Crystal Technology\Developer\AotfLibrary\DLL\AotfLibrary')
+            elif os.path.exists('C:\MicroscopeHardware\Crystal Technology\Developer\AotfLibrary\Dll\AotfLibrary.dll'):
+                aotf = cdll.LoadLibrary('C:\MicroscopeHardware\Crystal Technology\Developer\AotfLibrary\Dll\AotfLibrary.dll')
             else:
                 print "Failed to load AotfLibrary.dll"
 
@@ -178,6 +180,7 @@ class AOTF():
     def fskOn(self, channel, mode = 1):
         cmd = "dds fsk " + str(channel) + " " + str(mode)
         self._sendCmd(cmd)
+
 
     ## getStatus
     #

@@ -956,23 +956,23 @@ class ZScanLockModeV3(AlwaysOnLockMode):
                 if self.locked:
                     self.control_thread.stopLock()
                 self.control_thread.moveStageRel(-self.z_stop) 
-                self.current_z-=self.z_stop
+                self.current_z-=self.z_stop  # consider flip  
                 self.first_move = False
                     
             if (self.current_z < self.z_stop):
-                # print "Current/final:",self.current_z,self.z_stop
+                print "Current/final:",self.current_z,self.z_stop
                 if (self.counter == self.z_frames_to_pause):
                     self.counter = 0
                     self.current_z += self.z_step 
                     self.control_thread.moveStageRel(self.z_step) 
                 self.counter += 1
             else:
-                # print "Last_move ~reached"
+                print "Last_move ~reached"
                 if self.last_move:
                     self.control_thread.moveStageRel(-self.z_stop) #
-                    # print "Locked info:",self.locked
-                    if self.locked:
-                        # print "startedRelock"
+                    print "Locked info:",self.locked
+                    if self.locked:  #  if not self.locked
+                        print "startedRelock"
                         self.control_thread.startLock()
                     self.last_move = False
                 

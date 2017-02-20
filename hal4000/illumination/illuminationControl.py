@@ -24,6 +24,8 @@ import illumination.xmlParser as xmlParser
 # UI.
 import qtdesigner.illumination_ui as illuminationUi
 
+
+
 ## IlluminationControl
 #
 # Illumination power control.
@@ -131,6 +133,8 @@ class IlluminationControl(QtGui.QDialog, halModule.HalModule):
         else:
             self.ui.okButton.setText("Quit")
             self.ui.okButton.clicked.connect(self.handleQuit)
+            
+        print 'illumination control started'
 
     ## cleanup
     #
@@ -344,6 +348,8 @@ class IlluminationControl(QtGui.QDialog, halModule.HalModule):
             try:
                 # Start hardware.
                 for name, instance in self.hardware_modules.iteritems():
+                    # print name
+                    # print instance
                     if (instance.getStatus() == True):
                         instance.startFilm(self.parameters.get("seconds_per_frame"),
                                            self.parameters.get("illumination.shutter_oversampling"))

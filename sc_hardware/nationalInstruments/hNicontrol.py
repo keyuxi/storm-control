@@ -133,6 +133,7 @@ class Nidaq(illuminationHardware.DaqModulation):
     #
     def startFilm(self, seconds_per_frame, oversampling):
         illuminationHardware.DaqModulation.startFilm(self, seconds_per_frame, oversampling)
+        print oversampling
 
         # Calculate frequency. This is set slightly higher than the camere
         # frequency so that we are ready at the start of the next frame.
@@ -140,12 +141,13 @@ class Nidaq(illuminationHardware.DaqModulation):
 
         # If oversampling is 1 then just trigger the ao_task 
         # and do_task directly off the camera fire pin.
-        wv_clock = self.waveform_clock
+        wv_clock = self.waveform_clock  # wv_clock = DAQ counter port (eg PFI12)
         if (oversampling == 1):
             wv_clock = "PFI" + str(self.counter_trigger)
-
-        # Setup the counter.
+            
+        # Setup the counter.  (counter_board  = DAQ card)
         if self.counter_board and (oversampling > 1):
+            
             def startCtTask():
                 try:
                     self.ct_task = nicontrol.CounterOutput(self.counter_board, 
@@ -186,13 +188,12 @@ class Nidaq(illuminationHardware.DaqModulation):
                 waveform += analog_data[i][2]
 
             def startAoTask():
-                
                 try:
                     # Create channels.
                     self.ao_task = nicontrol.AnalogWaveformOutput(analog_data[0][0], analog_data[0][1])
                     for i in range(len(analog_data) - 1):
                         self.ao_task.addChannel(analog_data[i+1][0], analog_data[i+1][1])
-
+ 
                     # Add waveform
                     self.ao_task.setWaveform(waveform, frequency, clock = wv_clock)
 
@@ -219,7 +220,7 @@ class Nidaq(illuminationHardware.DaqModulation):
 
         # Setup digital waveforms.
         if (len(self.digital_data) > 0):
-
+            print 'starting digital waveform'
             # Sort by board, channel.
             digital_data = sorted(self.digital_data, key = lambda x: (x[0], x[1]))
 
