@@ -1,84 +1,59 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <settings>
-  <camera1 is_new="False">
-    <colortable type="string">ramp.ctbl</colortable>
-    <cycle_value type="float">0.10000637594</cycle_value>
-    <defect_correct_mode type="int">1</defect_correct_mode>
-    <exposure_time type="float">0.1</exposure_time>
-    <exposure_value type="float">0.10000637594</exposure_value>
-    <external_trigger type="int">0</external_trigger>
-    <flip_horizontal type="boolean">False</flip_horizontal>
-    <flip_vertical type="boolean">False</flip_vertical>
-    <reversed_shutter type="boolean">False</reversed_shutter>
-    <scalemax type="int">4404</scalemax>
-    <scalemin type="int">0</scalemin>
-    <transpose type="boolean">True</transpose>
-    <x_bin type="int">1</x_bin>
-    <x_end type="int">1435</x_end>
-    <x_pixels type="int">1024</x_pixels>
-    <x_start type="int">412</x_start>
-    <y_bin type="int">1</y_bin>
-    <y_end type="int">1435</y_end>
-    <y_pixels type="int">1024</y_pixels>
-    <y_start type="int">412</y_start>
+
+  <!-- camera settings -->
+  <camera1>
+    <reversed_shutter desc="Shutter response is backwards" type="boolean">False</reversed_shutter>
+    <flip_horizontal desc="Flip image horizontal" type="boolean">False</flip_horizontal>
+    <flip_vertical desc="Flip image vertical" type="boolean">False</flip_vertical>
+    <transpose desc="Transpose image" type="boolean">True</transpose>
   </camera1>
-  <film is_new="False">
-    <acq_mode type="string">fixed_length</acq_mode>
-    <auto_increment type="boolean">True</auto_increment>
-    <auto_shutters type="boolean">True</auto_shutters>
-    <directory type="string">E:\Alistair\2017-02-05_BG3-Abd\TestImages/</directory>
-    <extension type="string"/>
-    <filename type="string">zscan</filename>
-    <filetype type="string">.dax</filetype>
-    <frames type="int">120</frames>
-    <logfile type="string">C:\Data\image_log.txt</logfile>
-    <want_bell type="boolean">True</want_bell>
-    <want_big_endian type="boolean">False</want_big_endian>
+
+  <!-- film settings -->
+  <film>
+    <want_big_endian desc="Save movies using a big endian format" type="boolean">False</want_big_endian>
+    <directory desc="Current working directory" type="directory">C:\Data\</directory>
+    <filename desc="Current movie file name" type="string">movie</filename>
+    <acq_mode desc="Acquisition mode" type="string" values="run_till_abort,fixed_length">fixed_length</acq_mode>
+    <frames desc="Movie length in frames" type="int" min="1" max="1000000000">10</frames>
+    <logfile desc="Image log file" type="filename">C:\Data\image_log.txt</logfile>
+    <extension desc="Movie file name extension" type="string" values=",A750,A647,Cy5,Cy3,Cy2,A405,FITC,YFP,GFP,BF"></extension>
+    <auto_increment desc="Automatically increment movie counter between movies" type="boolean">True</auto_increment>
+    <want_bell desc="Sound bell at the end of long movies" type="boolean">True</want_bell>
+    <auto_shutters desc="Run shutters during the movie" type="boolean">True</auto_shutters>
+    <filetype desc="Movie file type" type="string" values=".dax">.dax</filetype>
   </film>
-  <focuslock is_new="False">
-    <cal_deadtime type="int">20</cal_deadtime>
-    <cal_frames_to_pause type="int">2</cal_frames_to_pause>
-    <cal_range type="float">600.0</cal_range>
-    <cal_step_size type="float">10.0</cal_step_size>
-    <ir_power type="int">6</ir_power>
-    <olock_bracket_step type="float">1000.0</olock_bracket_step>
-    <olock_quality_threshold type="float">0.0</olock_quality_threshold>
-    <olock_scan_hold type="int">10</olock_scan_hold>
-    <olock_scan_step type="float">100.0</olock_scan_step>
-    <qpd_scale type="float">50.0</qpd_scale>
-    <qpd_zcenter type="float">150.0</qpd_zcenter>
-    <zscan_focus_lock type="boolean">False</zscan_focus_lock>
-    <zscan_frames_to_pause type="int">2</zscan_frames_to_pause>
-    <zscan_start type="float">0.0</zscan_start>
-    <zscan_step type="float">0.1</zscan_step>
-    <zscan_stop type="float">2.5</zscan_stop>
-  </focuslock>
-  <illumination is_new="False">
-    <power_buttons type="custom">[[['Max', 1.0], ['Low', 0.1]], [['Max', 1.0], ['Low', 0.1]], [['Max', 1.0], ['Low', 0.1]], [['Max', 1.0], ['Low', 0.1]], [['Max', 1.0], ['Low', 0.1]]]</power_buttons>
-    <shutters type="string">C:/MicroscopeSoftware/settings-files/shutters_Cy5_Cy3.xml</shutters>
+
+  <!-- illumination settings -->
+  <illumination>
+    <shutters desc="Shutters file to use when taking a movie" type="filename">shutters_default.xml</shutters>
   </illumination>
-  <mosaic is_new="False">
-    <flip_horizontal type="boolean">True</flip_horizontal>
-    <flip_vertical type="boolean">False</flip_vertical>
-    <obj1 type="string">100x,0.107,0.0,0.0</obj1>
-    <obj2 type="string">60x,0.15267,0.0,0.0</obj2>
-    <obj3 type="string">10x,1.070,-49.1,266.0</obj3>
-    <obj4 type="string">4x,2.675,96.0,108.0</obj4>
-    <objective type="string">obj2</objective>
-    <transpose type="boolean">True</transpose>
-  </mosaic>
-  <setup_name type="string">scope1</setup_name>
-  <spotcounter is_new="False">
-    <nm_per_pixel type="float">158.0</nm_per_pixel>
-    <scale_bar_len type="float">1000.0</scale_bar_len>
-    <threshold type="int">250</threshold>
-  </spotcounter>
-  <stage is_new="False">
-    <flip_axis type="boolean">True</flip_axis>
-    <large_step_size type="float">100.0</large_step_size>
-    <small_step_size type="float">5.0</small_step_size>
-    <stage_speed type="int">2564800</stage_speed>
-    <x_sign type="int">-1</x_sign>
-    <y_sign type="int">-1</y_sign>
+
+  <!-- stage settings -->
+  <stage>
+    <x_sign desc="Reverse the direction of the X axis" type="int" values="-1,1">-1</x_sign>
+    <y_sign desc="Reverse the direction of the Y axis" type="int" values="-1,1">-1</y_sign>
+    <flip_axis desc="Switch X-Y stage axises" type="boolean">True</flip_axis>
   </stage>
+
+  <!-- spot counter -->
+  <spotcounter>
+    <threshold type="int" min="1" max="10000">250</threshold>
+    <scale_bar_len desc="Scale bar length in nm" type="float" min="100" max="10000">1000</scale_bar_len>
+    <nm_per_pixel desc="Nanometers per pixel" type="float" min="10" max="1000">158</nm_per_pixel>
+  </spotcounter>
+
+
+  <!-- steve settings -->
+  <mosaic>
+    <objective desc="Current objective" type="string" values="obj1,obj2,obj3,obj4">obj2</objective>
+    <flip_horizontal desc="Flip image horizontal (mosaic)" type="boolean">False</flip_horizontal>
+    <flip_vertical desc="Flip image vertical (mosaic)" type="boolean">False</flip_vertical>
+    <transpose desc="Transpose image (mosaic)" type="boolean">True</transpose>
+    <obj1 desc="100x objective" type="string">100x,0.107,0.0,0.0</obj1>
+    <obj2 desc="60x objective" type="string">60x,0.178,0.0,0.0</obj2>
+    <obj3 desc="10x objective" type="string">10x,1.070,-49.1,266.0</obj3>
+    <obj4 desc="4x objective" type="string">4x,2.675,96.0,108.0</obj4>
+  </mosaic>
+
 </settings>
