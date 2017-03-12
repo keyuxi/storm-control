@@ -31,7 +31,7 @@ class Ludl(RS232.RS232):
     # @param baudrate (Optional) The communication baud rate, defaults to 115200.
     # @param wait_time How long to wait between polling events before it is decided that there is no new data available on the port, defaults to 20ms.
     #
-    def __init__(self, port="COM17", timeout = None, baudrate = 115200, wait_time = 0.02):
+    def __init__(self, port="COM05", timeout = None, baudrate = 115200, wait_time = 0.02): # baudrate = 115200
         self.unit_to_um = 0.05
         self.um_to_unit = 1.0/self.unit_to_um
 
@@ -250,7 +250,7 @@ class LudlTCP(Ludl):
 # 
 
 if __name__ == "__main__":
-    stage = Ludl("COM17")
+    stage = Ludl("COM05")
     print stage.position()
     stage.zero()
     time.sleep(0.1)

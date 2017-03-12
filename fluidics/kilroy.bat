@@ -1,2 +1,2 @@
-path=c:\Python27;
+path=c:\Anaconda2;
 python kilroy.py

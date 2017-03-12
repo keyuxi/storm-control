@@ -114,6 +114,8 @@ class APump():
         self.selectUnit(unitNumber)
         self.sendString(command[0])
         newCharacter = self.getResponse()
+        if len(newCharacter) < 1:
+            print 'error connecting to pump!'
         response = ""
         while not (ord(newCharacter) & 0x80):
             response += newCharacter
