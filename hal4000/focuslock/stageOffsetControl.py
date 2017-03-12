@@ -65,9 +65,13 @@
 # Hazen 12/12
 #
 # Jeff 9/14: Added focus lock buffers to track performance to determine if locked
+#
+# Alistair 2/16: modified find sum focus lock recovery protocol
 
 from PyQt4 import QtCore
 from collections import deque 
+
+import time
 
 # Debugging
 import sc_library.hdebug as hdebug
@@ -334,11 +338,15 @@ class StageQPDThread(QtCore.QThread):
 
             # scan for sum signal.
             if self.find_sum:
-                if (power > self.max_sum):
+                # First try unlocking and relocking, manually this usually recovers after bubble
+                # if singal is still low then we can scan. 
+                if (power > self.max_sum):  # if we signal from IR laser (power) is greater than previous max (max_sum), update max_sum 
                     self.max_sum = power
                     self.max_pos = self.stage_z
+                    time.sleep(.1) # 
                 if (self.max_sum > self.requested_sum) and (power < (0.5 * self.max_sum)):
                     self.moveStageAbs(self.max_pos)
+                    time.sleep(.1) # wait .1s between steps. If the scan is too fast the focus is lost again
                     self.find_sum = False
                     self.foundSum.emit(self.max_sum)
                 else:
