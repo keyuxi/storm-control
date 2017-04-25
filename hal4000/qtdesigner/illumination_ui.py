@@ -8,7 +8,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -43,7 +42,8 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-
+        
+        
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "HAL-4000 Illumination", None))
         self.powerControlBox.setTitle(_translate("Dialog", "Power Control", None))

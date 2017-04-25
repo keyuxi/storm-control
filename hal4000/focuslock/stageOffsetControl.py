@@ -380,6 +380,7 @@ class StageQPDThread(QtCore.QThread):
                         if (self.count > 2):
                             self.count = 0
                             self.moveStageRel(self.lock_fn(self.offset - self.target))
+                            time.sleep(.1) # wait .1s between steps. If the scan is too fast the focus is lost again
                     else:
                         self.moveStageRel(self.lock_fn(self.offset - self.target))
                     
