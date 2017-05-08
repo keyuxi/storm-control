@@ -38,6 +38,7 @@ class ValveChain(QtGui.QWidget):
 
         # Create instance of Hamilton class
         if num_simulated_valves > 0:
+            print 'simulating valves'
             self.valve_chain = HamiltonMVP(com_port = 0,
                                            num_simulated_valves = num_simulated_valves,
                                            verbose = self.verbose)

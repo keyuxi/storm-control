@@ -37,23 +37,23 @@ class Kilroy(QtGui.QMainWindow):
         self.tcp_port = parameters.get("tcp_port")
         self.pump_com_port = parameters.get("pump_com_port")
         self.pump_ID = parameters.get("pump_ID")
-        if not hasattr(parameters, "num_simulated_valves"):
+        if not "num_simulated_valves" in parameters.parameters:
             self.num_simulated_valves = 0
         else:
             self.num_simulated_valves = parameters.get("num_simulated_valves")
-        if not hasattr(parameters, "protocols_file"):
+        if not "protocols_file" in parameters.parameters:
             self.protocols_file = "default_config.xml"
         else:
             self.protocols_file = parameters.get("protocols_file")
-        if not hasattr(parameters, "commands_file"):
+        if not "commands_file" in parameters.parameters:
             self.commands_file = "default_config.xml"
         else:
             self.commands_file = parameters.get("commands_file")
-        if not hasattr(parameters, "simulate_pump"):
+        if not "simulate_pump" in parameters.parameters:
             self.simulate_pump = False
         else:
             self.simulate_pump = parameters.get("simulate_pump")
-
+            
         # Define additional internal attributes
         self.received_message = None
         
