@@ -128,7 +128,7 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">2</channel>  <!-- MOD2+ = NI AO 2   -->
+	  <channel type="int">3</channel>  <!-- MOD2+ = NI AO 2   -->
 	  <max_voltage type="float">1.0</max_voltage>
 	  <min_voltage type="float">0.0</min_voltage>
 	</parameters>
@@ -138,7 +138,7 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">2</channel>   <!-- FSK2 = NI P0.2  -->
+	  <channel type="int">2</channel>   <!--  =2 FSK2 = NI P0.2  -->
 	</parameters>
       </digital_modulation>
     </channel>
@@ -164,7 +164,7 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">3</channel>   <!-- MOD3+ = NI AO 3    --> 
+	  <channel type="int">2</channel>   <!-- MOD3+ = NI AO 3    --> 
 	  <max_voltage type="float">1.0</max_voltage>
 	  <min_voltage type="float">0.0</min_voltage>
 	</parameters>
@@ -174,7 +174,7 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">3</channel>  <!-- FSK3 = NI P0.3    -->
+	  <channel type="int">3</channel>  <!--  =3   FSK3 = NI P0.3    -->
 	</parameters>
       </digital_modulation>
     </channel>

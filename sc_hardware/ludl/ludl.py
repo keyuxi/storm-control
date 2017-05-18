@@ -9,6 +9,7 @@
 # Edited 5/15 to add Z piezo and TCP/IP protocol
 # George Emanuel 5/15
 # Edited to add parameters 
+# My version which was part of a working hal until 4-25-2017
 
 import sc_library.parameters as params
 
