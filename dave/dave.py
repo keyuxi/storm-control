@@ -180,6 +180,7 @@ class Dave(QtGui.QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.remainingLabel.setText("")
+        self.ui.completionLabel.setText("")
         self.ui.sequenceLabel.setText("")
         self.ui.spaceLabel.setText("")
         self.ui.timeLabel.setText("")
@@ -796,9 +797,9 @@ class Dave(QtGui.QMainWindow):
     def updateEstimates(self):
         [est_time, est_space] = self.ui.commandSequenceTreeView.getEstimates()
         self.ui.timeLabel.setText("Run Duration: " + str(datetime.timedelta(seconds=est_time))[0:8])
-        #self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds=est_time))[0:8])
+        self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds=est_time))[0:8])
         endTime = datetime.timedelta(seconds=est_time) + datetime.datetime.now()
-        self.ui.remainingLabel.setText("Expected Completion: " + endTime.strftime("%I:%M%p %B %d, %Y"))
+        self.ui.completionLabel.setText("Expected Completion: " + endTime.strftime("%I:%M%p %B %d, %Y"))
         if est_space/2**10 < 1.0: # Less than GB
             self.ui.spaceLabel.setText("Run Size: {0:.2f} MB ".format(est_space))
         elif est_space/2**20 < 1.0: # Less than TB
