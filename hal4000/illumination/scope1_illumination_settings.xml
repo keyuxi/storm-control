@@ -21,6 +21,17 @@
       </parameters>
     </control_module>
     
+	<!-- 
+    <control_module>
+      <name>cube488</name>
+      <module_name>sc_hardware.coherent.hLaser</module_name>
+      <class_name>CoherentObis</class_name>
+      <parameters>
+	<port>COM10</port>
+      </parameters>
+    </control_module>
+    -->
+	
     <control_module>
       <name>daq</name>
       <module_name>sc_hardware.nationalInstruments.hNicontrol</module_name>
@@ -144,7 +155,7 @@
     </channel>
 
 
-    <!-- 488 laser -->
+    <!-- 488 laser     -->
     <channel>
       <description>488</description>
       <color type="rgb">0,100,255</color>
@@ -153,10 +164,10 @@
 	<uses>AOTF</uses>
 	<display_normalized type="boolean">True</display_normalized>
 	<parameters>
-	  <maximum type="int">7000</maximum> <!-- STORM6 at f=130.43, deflection = 50% at p=7800, 87% at p=15000 -->
-	  <channel type="int">3</channel>    <!-- MOD3+ = NI AO 3  -->
+	  <maximum type="int">7000</maximum> 
+	  <channel type="int">3</channel>   
 	  <off_frequency type="float">20.0</off_frequency>
-	  <on_frequency type="float">130.43</on_frequency>  <!-- Scope1 f=130.43, p=7000 deflection 80-90% -->
+	  <on_frequency type="float">130.43</on_frequency>  
 	</parameters>
       </amplitude_modulation>
       
@@ -164,7 +175,7 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">2</channel>   <!-- MOD3+ = NI AO 3    --> 
+	  <channel type="int">2</channel>  
 	  <max_voltage type="float">1.0</max_voltage>
 	  <min_voltage type="float">0.0</min_voltage>
 	</parameters>
@@ -174,11 +185,44 @@
 	<uses>daq</uses>
 	<parameters>
 	  <board>PCIe-6353</board>
-	  <channel type="int">3</channel>  <!--  =3   FSK3 = NI P0.3    -->
+	  <channel type="int">3</channel> 
 	</parameters>
       </digital_modulation>
     </channel>
 
+     <!-- MOD3+ = NI AO 3  -->
+ <!-- power: STORM6 at f=130.43, deflection = 50% at p=7800, 87% at p=15000 -->
+    <!-- Scope1 f=130.43, p=7000 deflection 80-90% -->
+     <!--  =3   FSK3 = NI P0.3    -->
+     <!-- MOD3+ = NI AO 3    --> 
+
+    <!-- 488 laser via cube     
+    <channel>
+      <description>488</description>
+      <color type="rgb">0,100,255</color>
+      
+   <amplitude_modulation>
+	<uses>cube488</uses>
+	<display_normalized type="boolean">True</display_normalized>
+	<parameters>
+	  <maximum type="int">5000</maximum>
+	</parameters>
+      </amplitude_modulation>
+      
+      
+      <digital_modulation>
+	<uses>daq</uses>
+	<parameters>
+	  <board>PCIe-6353</board>
+	  <channel type="int">9</channel>  
+	</parameters>
+      </digital_modulation>
+    </channel>
+  -->
+    <!--  Digital out = NI P0.9    -->
+    
+    
+    
 
     <!-- 405 laser -->
     <channel>
