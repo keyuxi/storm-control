@@ -454,7 +454,7 @@ class Dave(QtGui.QMainWindow):
             
             # Update time remaining time estimate.
             est_time = self.ui.commandSequenceTreeView.getRemainingTime()
-            self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds = est_time))[0:8])
+            self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds = est_time)))
 
             # Check for requested pause.
             if self.running: 
@@ -796,8 +796,8 @@ class Dave(QtGui.QMainWindow):
     @hdebug.debug
     def updateEstimates(self):
         [est_time, est_space] = self.ui.commandSequenceTreeView.getEstimates()
-        self.ui.timeLabel.setText("Run Duration: " + str(datetime.timedelta(seconds=est_time))[0:8])
-        self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds=est_time))[0:8])
+        self.ui.timeLabel.setText("Run Duration: " + str(datetime.timedelta(seconds=est_time)))
+        self.ui.remainingLabel.setText("Time Remaining: " + str(datetime.timedelta(seconds=est_time)))
         endTime = datetime.timedelta(seconds=est_time) + datetime.datetime.now()
         self.ui.completionLabel.setText("Expected Completion: " + endTime.strftime("%I:%M%p %B %d, %Y"))
         if est_space/2**10 < 1.0: # Less than GB
