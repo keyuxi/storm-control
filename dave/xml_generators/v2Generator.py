@@ -118,7 +118,7 @@ class XMLRecipeParser(QtGui.QWidget):
                     primitives_xml.append(new_node)
 
             elif child.tag == "change_directory": # Handle change_directory tag
-                new_node = daveActions.DASetDirectory().createETree({"directory": os.path.join(base_dir, child.text)})
+                new_node = daveActions.DASetDirectory().createETree({"directory": os.path.join(base_dir, child.text) if base_dir is not None else child.text})
                 if new_node is not None:
                     primitives_xml.append(new_node)
 
