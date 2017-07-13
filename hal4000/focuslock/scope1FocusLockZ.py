@@ -46,7 +46,7 @@ class AFocusLockZ(focusLockZ.FocusLockZCam):
         lock_params.add("ir_power", params.ParameterInt("", "ir_power", 6, is_mutable = False))
         
         offset_file = "cam_offsets_scope1.txt"
-        cam = uc480Cam.CameraQPD(camera_id = 0, x_width = 680, y_width = 200,  # x_width = 540, y_width = 150   / 1280 x 1040
+        cam = uc480Cam.CameraQPD(camera_id = 0, x_width = 180, y_width = 200,  #  x_width = 680, y_width = 200,  5/31/17   x_width = 540, y_width = 150   / 1280 x 1040
 			sigma = 4.0, offset_file = offset_file)  # sigma = 4.0
         stage = MCLVZC.MCLVZControl("USB-6002", 0)
         # stage = noneWidgets.NanoP()  # use this to bypass the stage 
