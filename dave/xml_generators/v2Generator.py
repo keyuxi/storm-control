@@ -83,7 +83,7 @@ class XMLRecipeParser(QtGui.QWidget):
     # @param primitives_xml The element tree that will contain dave primitives
     # @param flat_sequence The element tree that contains a flat sequence of higher order commands, e.g. <movie>
     #
-    def convertToDaveXMLPrimitives(self, primitives_xml, flat_sequence, base_dir = ""):
+    def convertToDaveXMLPrimitives(self, primitives_xml, flat_sequence, base_dir = "", create_dir = False):
         if self.verbose:
             print "---------------------------------------------------------"
             print "Converting to Dave Primitives"
@@ -93,7 +93,7 @@ class XMLRecipeParser(QtGui.QWidget):
             if child.tag == "branch": # Generate block and call recursively to handle elements in blocks
                 branch = ElementTree.SubElement(primitives_xml, "branch")
                 branch.attrib["name"] = child.attrib["name"]
-                self.convertToDaveXMLPrimitives(branch, child, base_dir = base_dir)
+                self.convertToDaveXMLPrimitives(branch, child, base_dir = base_dir, create_dir = create_dir)
             
             elif child.tag == "movie": # Handle <movie> tag
                 movie_block = ElementTree.SubElement(primitives_xml, "branch")
@@ -118,7 +118,16 @@ class XMLRecipeParser(QtGui.QWidget):
                     primitives_xml.append(new_node)
 
             elif child.tag == "change_directory": # Handle change_directory tag
-                new_node = daveActions.DASetDirectory().createETree({"directory": os.path.join(base_dir, child.text) if base_dir is not None else child.text})
+                directory_path = os.path.join(base_dir, child.text) if base_dir is not None else child.text
+                new_node = daveActions.DASetDirectory().createETree({"directory": directory_path})
+                if create_dir:
+                    if create_dir == "error" and os.path.isdir(directory_path):
+                        raise Exception, "Directory already exists: %s" % directory_path
+
+                    try:
+                        os.makedirs(directory_path)
+                    except:
+                        pass
                 if new_node is not None:
                     primitives_xml.append(new_node)
 
@@ -339,6 +348,7 @@ class XMLRecipeParser(QtGui.QWidget):
                 self.loop_variable_names.append(child.attrib["name"])
             if child.tag == "base_directory":
                 self.base_directory = child.attrib["path"]
+                self.create_directory = child.attrib["create"] if "create" in child.attrib else False
         
         # Expand loop variables and parse from file if needed
         self.parseLoopVariables()
@@ -358,7 +368,7 @@ class XMLRecipeParser(QtGui.QWidget):
         # Create Dave action primitives
         self.da_primitives_xml = ElementTree.Element("sequence")
         self.da_primitives_xml.text = "\n"
-        self.convertToDaveXMLPrimitives(self.da_primitives_xml, self.flat_sequence, self.base_directory)
+        self.convertToDaveXMLPrimitives(self.da_primitives_xml, self.flat_sequence, self.base_directory, self.create_directory)
 
         # Save dave primitives
         self.saveDavePrimitives()
