@@ -1,5 +1,5 @@
 ## storm-control ##
-This is a repository of code developed in the [Zhuang Lab](http://zhuang.harvard.edu) for the acquisition of STORM movies.
+This is a fork of the storm-control repository of code developed in the [Zhuang Lab](http://zhuang.harvard.edu) for the acquisition of STORM movies. We use this software for a variety of single-molecule imaging and fluorescent microscopy approaches, including STORM experiments. Most of the underlying code was written by Hazen Babcock, Harvard University. 
 
 ## Installation ##
 You will need Python and PyQt as well as a number of other libraries. Please see the Install.txt file in the hal4000 folder.
@@ -30,4 +30,6 @@ zee-calibrator - This folder contains software (main.py) that is used to generat
 
 5. This software can also control an NSTORM setup, with some limitations, the biggest of which is probably that shutter sequences don't work.
 
-6. Questions should be addressed to Hazen Babcock (hbabcock _at_ fas.harvard.edu).
+6. The Fluidics project has been moved from storm-control to a stand-alone [repository](https://github.com/BoettigerLab/fluidics-control).
+
+7. Questions about this fork may be addressed to Alistair Boettiger, (boettiger _at_ stanford.edu). For the original repository, please see [github.com/ZhuangLab/storm-control](https://github.com/ZhuangLab/storm-control).  Note, this fork of the ZhuangLab storm-control is not maintained in backwards compatibility with the source.
